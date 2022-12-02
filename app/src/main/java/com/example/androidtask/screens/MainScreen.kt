@@ -1,5 +1,6 @@
 package com.example.androidtask.screens
 
+import android.os.Bundle
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -39,7 +40,7 @@ fun MainScreen(viewModel: MainViewModel, navController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                backgroundColor = Color.Black,
+                backgroundColor = Color.DarkGray,
                 title = {
                     Text(
                         text = news[0].date,
@@ -74,7 +75,7 @@ fun MainScreen(viewModel: MainViewModel, navController: NavHostController) {
                             .fillMaxWidth()
                             .wrapContentHeight()
                             .padding(vertical = 25.dp)
-                            .background(color = Color.DarkGray),
+                            .background(color = Color.Gray),
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -86,7 +87,7 @@ fun MainScreen(viewModel: MainViewModel, navController: NavHostController) {
                     }
                 }
                 items(news[0].articles) {
-                    NewsItem(it, navController)
+                    NewsItem(it, viewModel, navController)
                 }
             }
         }
@@ -94,7 +95,7 @@ fun MainScreen(viewModel: MainViewModel, navController: NavHostController) {
 }
 
 @Composable
-fun NewsItem(it: Article, navController: NavHostController) {
+fun NewsItem(it: Article, viewModel: MainViewModel, navController: NavHostController) {
     Card(
         shape = RoundedCornerShape(
             topStart = 0.dp,
@@ -107,7 +108,8 @@ fun NewsItem(it: Article, navController: NavHostController) {
             .fillMaxWidth()
             .wrapContentHeight()
             .clickable {
-                navController.navigate("details_screen/${it.id}")
+                viewModel.article.postValue(it)
+                navController.navigate("details_screen")
             },
         elevation = 5.dp,
         backgroundColor = Color.LightGray

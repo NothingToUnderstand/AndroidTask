@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidtask.model.Article
 import com.example.androidtask.model.NewsResponse
 import com.example.androidtask.repo.NewsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +22,7 @@ class MainViewModel @Inject constructor(
     private val repository: NewsRepository
 ) : ViewModel() {
     val news = MutableLiveData<List<NewsResponse>>()
+    val article = MutableLiveData<Article>()
     fun getNews(countryCode: String, pageNumber: Int) {
         viewModelScope.launch {
             repository.getNews(countryCode, pageNumber).let { it ->
