@@ -33,7 +33,7 @@ fun MainScreen(viewModel: MainViewModel, navController: NavHostController) {
     val swipeRefreshState = rememberSwipeRefreshState(news != news)
     if (news.isEmpty()) {
         Surface {
-            Text(text = "Please wait")
+            Text(text = "Loading...")
         }
         return
     }
